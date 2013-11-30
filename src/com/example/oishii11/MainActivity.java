@@ -1,6 +1,7 @@
 package com.example.oishii11;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -53,6 +54,18 @@ public class MainActivity extends Activity {
 
 	private void update(Message str) {
 		list.add(0, str);
+		try {
+			OutputStream os = socket.getOutputStream();
+			// protocol "<id>:<body>\n"
+			os.write(Integer.toString(str.getId()).getBytes());
+			os.write(":".getBytes());
+			os.write(str.getBody().getBytes());
+			os.write("\n".getBytes());
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		StringBuffer str2 = new StringBuffer();
 		int line = 0;
 		for (Message message : list) {
