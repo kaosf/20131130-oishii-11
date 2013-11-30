@@ -16,12 +16,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText edit = (EditText)findViewById(R.id.editText1);
+        final EditText edit = (EditText)findViewById(R.id.editText1);
         edit.setOnKeyListener(new OnKeyListener() {
-
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (keyCode == KeyEvent.KEYCODE_ENTER) {
+					String str = edit.getText().toString();
 					return true;
 				}
 				return false;
