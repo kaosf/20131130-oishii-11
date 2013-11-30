@@ -1,5 +1,7 @@
 package com.example.oishii11;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+	ArrayList<String> list = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,19 @@ public class MainActivity extends Activity {
     }
 
 	private void update(String str) {
+		list.add(0, str);
+		StringBuffer str2 = new StringBuffer();
+		int line = 0;
+		for (String message : list) {
+			if (line > 20) {
+				break;
+			}
+			str2.append(message);
+			str2.append('\n');
+			line++;
+		}
 		TextView view = (TextView) findViewById(R.id.textView1);
-		view.setText(str);
+		view.setText(str2);
 	}
 
     @Override
