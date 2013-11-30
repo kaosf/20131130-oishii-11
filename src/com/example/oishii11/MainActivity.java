@@ -24,13 +24,13 @@ public class MainActivity extends Activity implements Runnable {
 	Socket socket = null;
 	Handler handler = new Handler();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-        final EditText edit = (EditText)findViewById(R.id.editText1);
-        edit.setOnKeyListener(new OnKeyListener() {
+		final EditText edit = (EditText)findViewById(R.id.editText1);
+		edit.setOnKeyListener(new OnKeyListener() {
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements Runnable {
 			}
 		});
 		new Thread(this).start();
-    }
+	}
 
 	private void update(Message str) {
 		for (Message msg : list) {
@@ -86,12 +86,12 @@ public class MainActivity extends Activity implements Runnable {
 		});
 	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
 	@Override
 	public void run() {
