@@ -20,7 +20,9 @@ public class MainActivity extends Activity {
 
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				// TODO Auto-generated method stub
+				if (keyCode == KeyEvent.KEYCODE_ENTER) {
+					return true;
+				}
 				return false;
 			}
 		});
