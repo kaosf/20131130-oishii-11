@@ -22,6 +22,8 @@ public class MainActivity extends Activity {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (keyCode == KeyEvent.KEYCODE_ENTER) {
 					String str = edit.getText().toString();
+					update(str);
+					edit.setText("");
 					return true;
 				}
 				return false;
