@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-	ArrayList<String> list = new ArrayList<String>();
+	ArrayList<Message> list = new ArrayList<Message>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 					if (str.length() == 0) {
 						return true;
 					}
-					update(str);
+					update(new Message(str));
 					edit.setText("");
 					return true;
 				}
@@ -37,15 +37,15 @@ public class MainActivity extends Activity {
 		});
     }
 
-	private void update(String str) {
+	private void update(Message str) {
 		list.add(0, str);
 		StringBuffer str2 = new StringBuffer();
 		int line = 0;
-		for (String message : list) {
+		for (Message message : list) {
 			if (line > 20) {
 				break;
 			}
-			str2.append(message);
+			str2.append(message.getBody());
 			str2.append('\n');
 			line++;
 		}
