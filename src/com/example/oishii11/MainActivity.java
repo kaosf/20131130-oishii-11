@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -28,6 +29,10 @@ public class MainActivity extends Activity {
 		});
     }
 
+	private void update(String str) {
+		TextView view = (TextView) findViewById(R.id.textView1);
+		view.setText(str);
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
