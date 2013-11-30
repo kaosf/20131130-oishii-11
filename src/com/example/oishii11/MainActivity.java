@@ -1,6 +1,9 @@
 package com.example.oishii11;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -15,7 +18,7 @@ import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Runnable {
 	ArrayList<Message> list = new ArrayList<Message>();
 	Socket socket = null;
 
@@ -40,19 +43,14 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-
-		try {
-			socket = new Socket("192.168.0.201", 4444);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 
 	private void update(Message str) {
+		for (Message msg : list) {
+			if (msg.getId() == str.getId()) {
+				return;
+			}
+		}
 		list.add(0, str);
 		try {
 			OutputStream os = socket.getOutputStream();
@@ -86,5 +84,35 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+	@Override
+	public void run() {
+		try {
+			socket = new Socket("192.168.0.201", 4444);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			InputStream is = socket.getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			while (true) {
+				String line = reader.readLine();
+				int index = line.indexOf(':');
+				if (index >= 0) {
+					String id = line.substring(0, index);
+					String body = line.substring(index + 1);
+					Message message = new Message(Integer.valueOf(id), body);
+					update(message);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
 }
