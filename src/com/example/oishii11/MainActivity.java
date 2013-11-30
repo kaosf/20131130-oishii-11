@@ -1,5 +1,8 @@
 package com.example.oishii11;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	ArrayList<Message> list = new ArrayList<Message>();
+	Socket socket = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,16 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
+
+		try {
+			socket = new Socket("192.168.0.201", 4444);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 	private void update(Message str) {
