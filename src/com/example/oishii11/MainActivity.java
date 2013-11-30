@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements Runnable {
 	ArrayList<Message> list = new ArrayList<Message>();
 	Socket socket = null;
+	Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class MainActivity extends Activity implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		StringBuffer str2 = new StringBuffer();
+		final StringBuffer str2 = new StringBuffer();
 		int line = 0;
 		for (Message message : list) {
 			if (line > 20) {
@@ -74,8 +76,13 @@ public class MainActivity extends Activity implements Runnable {
 			str2.append('\n');
 			line++;
 		}
-		TextView view = (TextView) findViewById(R.id.textView1);
-		view.setText(str2);
+		this.handler.post(new Runnable() {
+			@Override
+			public void run() {
+				TextView view = (TextView) findViewById(R.id.textView1);
+				view.setText(str2);
+			}
+		});
 	}
 
     @Override
