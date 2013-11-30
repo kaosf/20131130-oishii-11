@@ -3,6 +3,7 @@ package com.example.oishii11;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
@@ -10,6 +11,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        EditText edit = (EditText)findViewById(R.id.editText1);
     }
 
 
