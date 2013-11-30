@@ -45,6 +45,7 @@ public class MainActivity extends Activity implements Runnable {
 				return false;
 			}
 		});
+		new Thread(this).start();
     }
 
 	private void update(Message str) {
